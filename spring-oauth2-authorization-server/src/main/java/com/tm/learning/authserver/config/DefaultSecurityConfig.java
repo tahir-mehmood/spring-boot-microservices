@@ -39,7 +39,7 @@ public class DefaultSecurityConfig {
                 )
                 //All requests must be authenticated
                 // Utilize the default login page provided by security
-                .formLogin(Customizer.withDefaults());
+                .formLogin().loginPage("/login").permitAll()  ;
         return http.build();
 
     }

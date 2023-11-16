@@ -35,14 +35,17 @@ public class AuthorizationServerConfig {
 
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
 
-        http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
+         http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
 
                 .oidc(Customizer.withDefaults()); // Enable OpenId Connection 1.0
 
         http.exceptionHandling(exception -> exception
                         .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")))
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
-        return http.build();
+        return http
+                .cors(Customizer.withDefaults())
+                .formLogin().loginPage("/login").successForwardUrl("").failureForwardUrl("/login?error=true").and().build();
+       // return http.build();
     }
 
 
